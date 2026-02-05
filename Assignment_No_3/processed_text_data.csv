@@ -1,0 +1,4 @@
+text,label,cleaned_text,encoded_label
+I love Natural Language Processing!!!,positive,love natural language processing,1
+Machine learning is very interesting.,positive,machine learning interesting,1
+Text cleaning is an important step in NLP.,neutral,text cleaning important step nlp,0
