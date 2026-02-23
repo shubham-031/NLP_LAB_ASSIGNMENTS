@@ -1,0 +1,91 @@
+# Text Preprocessing and NLP Analysis using NLTK
+# NLP Assignment
+
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+from nltk import pos_tag
+
+# Download required resources (first time only)
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+
+ps = PorterStemmer()
+stop_words = set(stopwords.words('english'))
+
+
+def sentence_tokenization(text):
+    sentences = sent_tokenize(text)
+    print("\nSentences:")
+    for s in sentences:
+        print(s)
+
+
+def word_tokenization(text):
+    words = word_tokenize(text)
+    print("\nWords:")
+    print(words)
+
+
+def remove_stopwords(text):
+    words = word_tokenize(text)
+    filtered = [w for w in words if w.lower() not in stop_words]
+    print("\nAfter Stopword Removal:")
+    print(filtered)
+
+
+def stemming(text):
+    words = word_tokenize(text)
+    stemmed = [ps.stem(w) for w in words]
+    print("\nAfter Stemming:")
+    print(stemmed)
+
+
+def pos_tagging(text):
+    words = word_tokenize(text)
+    tagged = pos_tag(words)
+    print("\nPOS Tagging:")
+    print(tagged)
+
+
+def menu():
+    text = input("\nEnter the text for analysis:\n")
+
+    while True:
+        print("\n===== TEXT PREPROCESSING MENU =====")
+        print("1. Sentence Tokenization")
+        print("2. Word Tokenization")
+        print("3. Remove Stopwords")
+        print("4. Stemming")
+        print("5. POS Tagging")
+        print("6. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            sentence_tokenization(text)
+
+        elif choice == "2":
+            word_tokenization(text)
+
+        elif choice == "3":
+            remove_stopwords(text)
+
+        elif choice == "4":
+            stemming(text)
+
+        elif choice == "5":
+            pos_tagging(text)
+
+        elif choice == "6":
+            print("\nExiting Program...")
+            break
+
+        else:
+            print("\nInvalid Choice! Try Again.")
+
+
+# Run Program
+menu()
