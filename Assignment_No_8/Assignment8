@@ -1,0 +1,70 @@
+# Word Sense Disambiguation using WordNet
+# NLP Assignment
+
+import nltk
+from nltk.wsd import lesk
+from nltk.corpus import wordnet as wn
+from nltk.tokenize import word_tokenize
+
+# Download resources (first time only)
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+
+
+def display_senses(word):
+    senses = wn.synsets(word)
+    if not senses:
+        print("No senses found in WordNet.")
+        return
+    
+    print(f"\nAvailable Senses for '{word}':\n")
+    for i, sense in enumerate(senses):
+        print(f"{i+1}. {sense.name()}")
+        print("   Definition:", sense.definition())
+        print("   Example:", sense.examples())
+        print()
+
+
+def disambiguate_sentence(sentence, target_word):
+    tokens = word_tokenize(sentence)
+    sense = lesk(tokens, target_word)
+    
+    if sense:
+        print("\nCorrect Sense Identified:")
+        print("Word:", target_word)
+        print("Synset:", sense.name())
+        print("Definition:", sense.definition())
+        print("Example:", sense.examples())
+    else:
+        print("No sense could be determined.")
+
+
+def menu():
+    while True:
+        print("\n===== WORD SENSE DISAMBIGUATION MENU =====")
+        print("1. Show all meanings of a word")
+        print("2. Disambiguate word in sentence")
+        print("3. Exit")
+        
+        choice = input("Enter your choice: ")
+        
+        if choice == "1":
+            word = input("Enter the word: ")
+            display_senses(word)
+        
+        elif choice == "2":
+            sentence = input("Enter the sentence: ")
+            word = input("Enter the ambiguous word from the sentence: ")
+            disambiguate_sentence(sentence, word)
+        
+        elif choice == "3":
+            print("Exiting Program...")
+            break
+        
+        else:
+            print("Invalid choice. Try again.")
+
+
+# Run program
+menu()
